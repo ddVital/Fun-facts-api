@@ -45,6 +45,7 @@ header {
   justify-content: space-around;
   align-items: center;
   padding: 0.5rem;
+  box-shadow: 4px 4px 8px rgba(126, 126, 126, 0.123);
 }
 
 nav {
@@ -58,6 +59,11 @@ nav {
 
 .try-free {
   font-weight: bolder;
+}
+
+.navigation,
+#bars {
+  display: none;
 }
 
 .hero {
@@ -91,22 +97,53 @@ nav {
   user-select: none;
 }
 
-.about {
-  display: flex;
-  justify-content: space-around;
-  /* align-items: center; */
-  margin-top: 5rem;
+/* ===== docs ===== */
+.docs {
+  margin: 10px 0 0 30px;
 }
 
-/* ===== docs ===== */
+.docs div {
+  margin: 10px 0;
+}
+
+hr {
+  margin: 20px 0;
+}
+
+.docs code {
+  background-color: #ebebeb;
+  padding: 4px;
+}
+
 .parameters {
-  background-color: teal;
+  /* background-color: teal; */
 }
 
 .parameters__item {
-  display: flex;
-  align-items: center;
-  background-color: tomato;
+  /* display: flex; */
+  /* align-items: center; */
+  /* background-color: tomato; */
+}
+
+/* 
+.parameters__item span {
+  background-color: #4b3e6e;
+  margin: 0 19px;
+} */
+
+.api-response {
+  max-width: 300px;
+}
+
+table {
+  /* background-color: #4b3e6e; */
+}
+
+table tr th {
+  text-align: left;
+}
+table tr td {
+  padding: 6px;
 }
 
 footer {
@@ -115,4 +152,33 @@ footer {
   display: flex;
   justify-content: space-between;
   padding: 1rem 2rem;
+}
+
+@media screen and (max-width: 768px) {
+  header {
+    /* display: flex; */
+    justify-content: space-between;
+  }
+
+  .fa-bars {
+    font-size: 1.5rem;
+  }
+
+  .navigation {
+    position: fixed;
+    display: none;
+    background-color: #4b3e6e;
+    height: 100vh;
+    width: 60%;
+    transition: display ease 0.5s;
+  }
+
+  .active {
+    display: block;
+  }
+
+  header div,
+  nav {
+    display: none;
+  }
 }

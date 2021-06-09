@@ -1,45 +1,95 @@
-<section>
-  <h1>Basic call</h1>
+<div class="docs">
+  <section>
+    <h1>Get all facts</h1>
 
-  <div>
-    <code>http://localhost:3000/api/</code>
-  </div>
-</section>
-
-<section>
-  <h1>Get all facts</h1>
-
-  <p>If you want to get all the facts you can.</p>
-  <div>
-    <code>http://localhost:3000/api/all</code>
-  </div>
-
-  <div class="parameters">
-    <p>parameters</p>
-    <div class="parameters__item">
-      <code>category</code>
-      <span>optional</span>
-      <p>
-        You can use the category parameter to get the facts about that topic.
-      </p>
+    <p>If you want to get all the facts you can.</p>
+    <div>
+      <code>https://<%= url %>/api/all</code>
     </div>
-    <div class="parameters__item">
-      <code>lang</code>
-      <span>optional</span>
-      <p>You can use the lang parameter to get the output in your language.</p>
+
+    <div class="parameters">
+      <table>
+        <tbody>
+          <tr>
+            <th colspan="3">Parameters</th>
+          </tr>
+          <tr>
+            <td><code>lang</code></td>
+            <td><span class="sub">optional</span></td>
+            <td>
+              <p>
+                You can use the lang parameter to get the output in your
+                language.
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td><code>Category</code></td>
+            <td><span class="sub">optional</span></td>
+            <td>
+              <p>
+                You can use the category parameter to get the facts about that
+                topic.
+              </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-  </div>
-</section>
 
-<section>
-  <h1>Get Facts by category</h1>
+    <div>
+      <h4>Api call example</h4>
+      <code>https://<%= url %>/api/all</code>
+    </div>
 
-  <p>
-    You can get all the facts about a specific topic just by adding
-    <code>?category={some category}</code>
-  </p>
+    <div>
+      <h4>Api Response example</h4>
+      <code class="api-response">
+        [{"category":["cars"],"_id":"60a6dd58acb71c22b465b212","fact":"violets
+        are blue","__v":0}]</code
+      >
+    </div>
+  </section>
 
-  <div>
-    <code>http://localhost:3000/api/all</code>
-  </div>
-</section>
+  <hr />
+
+  <section>
+    <h1>Get specific facts</h1>
+
+    <p>If you want to get a specific fact.</p>
+    <div>
+      <code>https://<%= url %>/api/all</code>
+    </div>
+
+    <!-- <div class="parameters"> -->
+    <table>
+      <tbody>
+        <tr>
+          <th colspan="3">Parameters</th>
+        </tr>
+        <tr>
+          <td><code>id</code></td>
+          <td><span class="sub">required</span></td>
+          <td>
+            <p>
+              You can use the lang parameter to get the output in your language.
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- </div> -->
+    <div>
+      <h4>Api call example</h4>
+      <code>https://<%= url %>/api/all</code>
+    </div>
+
+    <div>
+      <h4>Api Response example</h4>
+      <code class="api-response">
+        [{"category":["cars"],"_id":"60a6dd58acb71c22b465b212","fact":"violets
+        are blue","__v":0}]</code
+      >
+    </div>
+  </section>
+</div>
