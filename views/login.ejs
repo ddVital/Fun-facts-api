@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- font awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+      integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Home</title>
+  </head>
+  <body>
+    <div class="signin-signup">
+      <section class="login">
+        <div id="login-section">
+          <h1>Sign in</h1>
+          <form action="" method="post">
+            <input type="email" name="email" placeholder="email" id="" />
+            <input type="text" name="name" placeholder="Name" id="" />
+            <input
+              type="password"
+              name="password"
+              placeholder="password"
+              id=""
+            />
+            <button class="btn">Sign in</button>
+          </form>
+        </div>
+
+        <div id="register-section" style="display: none">
+          <h1>Sign up</h1>
+          <form action="" method="post" id="register-form">
+            <input type="email" name="email" placeholder="email" id="" />
+            <input
+              type="password"
+              name="password"
+              placeholder="password"
+              id=""
+            />
+            <button class="btn">Sign up</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="side" id="side">
+        <div class="side__content" id="register-content">
+          <h3>Sign up</h3>
+          <p>Sign up and use this awesome api for free.</p>
+          <button id="sign-up">Sign up</button>
+        </div>
+
+        <div class="side__content" id="login-content">
+          <h3>Sign in</h3>
+          <p>Sign in and use this awesome api for free.</p>
+          <button id="sign-in">Sign in</button>
+        </div>
+      </section>
+    </div>
+
+    <!-- <script src="/js/main.js"></script> -->
+
+    <script>
+      const signInBtn = document.getElementById("sign-in");
+      const signUpBtn = document.getElementById("sign-up");
+      const side = document.getElementById("side");
+      const loginContent = document.getElementById("login-content");
+      const registerContent = document.getElementById("register-content");
+
+      signInBtn.addEventListener("click", () => {
+        changeFormPosition(false);
+        changeContent("register");
+        side.classList.remove("sign-in");
+        showForm(true);
+      });
+
+      signUpBtn.addEventListener("click", () => {
+        changeFormPosition(true);
+        changeContent("login");
+        side.classList.add("sign-in");
+        showForm(false);
+      });
+
+      const changeContent = (activePage) => {
+        if (activePage === "login") {
+          registerContent.style.display = "none";
+          loginContent.style.display = "block";
+        } else {
+          loginContent.style.display = "none";
+          registerContent.style.display = "block";
+        }
+      };
+
+      const showForm = (isLoginPageActive) => {
+        const registerSection = document.getElementById("register-section");
+        const loginSection = document.getElementById("login-section");
+
+        if (isLoginPageActive) {
+          loginSection.style.display = "block";
+          registerSection.style.display = "none";
+        } else {
+          registerSection.style.display = "block";
+          loginSection.style.display = "none";
+        }
+      };
+
+      const changeFormPosition = (isLoginPageActive) => {
+        const login = document.querySelector(".login");
+
+        if (isLoginPageActive) {
+          login.classList.add("register");
+        } else {
+          login.classList.remove("register");
+        }
+      };
+    </script>
+  </body>
+</html>

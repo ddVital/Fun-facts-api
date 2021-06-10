@@ -1,5 +1,7 @@
 # GET http://localhost:3000/api/fact?postId=60a6dd58acb71c22b465b212
-POST http://localhost:3000/api
+# GET http://localhost:3000/api/fact?factId=60a975e2c7049a21bc14f61d
+# GET  http://localhost:3000/
+POST   http://localhost:3000/api/create
 Content-Type: application/json
 
-{"fact": "toes are = planes","category": ["toe", "plane"], "lang": "pt" }
+{"fact": "kachau kachau","category": ["mcckeen"], "lang": "en" }

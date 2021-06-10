@@ -15,7 +15,7 @@
           </tr>
           <tr>
             <td><code>lang</code></td>
-            <td><span class="sub">optional</span></td>
+            <td>optional</td>
             <td>
               <p>
                 You can use the lang parameter to get the output in your
@@ -40,14 +40,6 @@
     <div>
       <h4>Api call example</h4>
       <code>https://<%= url %>/api/all</code>
-    </div>
-
-    <div>
-      <h4>Api Response example</h4>
-      <code class="api-response">
-        [{"category":["cars"],"_id":"60a6dd58acb71c22b465b212","fact":"violets
-        are blue","__v":0}]</code
-      >
     </div>
   </section>
 
@@ -83,13 +75,22 @@
       <h4>Api call example</h4>
       <code>https://<%= url %>/api/all</code>
     </div>
-
-    <div>
-      <h4>Api Response example</h4>
-      <code class="api-response">
-        [{"category":["cars"],"_id":"60a6dd58acb71c22b465b212","fact":"violets
-        are blue","__v":0}]</code
-      >
-    </div>
   </section>
+
+  <h1 id="res"></h1>
 </div>
+
+<script>
+  const url = "http://localhost:3000/api/all?lang=pt";
+
+  const test = async () => {
+    const a = await fetch(url);
+    const response = await a.json();
+
+    console.log(response);
+    const ele = document.getElementById("res");
+    ele.innerText = response.facts[1].fact;
+  };
+
+  test();
+</script>

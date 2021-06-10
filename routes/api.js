@@ -3,18 +3,7 @@ const Fact = require("../models/Fact");
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
-  try {
-    const facts = await Fact.find();
-    res.json(facts);
-  } catch (err) {
-    res.json({ message: err });
-  }
-  res.send("api result");
-});
-
-router.post("/", async (req, res) => {
-  console.log(req.body);
+router.post("/create", async (req, res) => {
   const fact = new Fact(
     {
       fact: req.body.fact,
@@ -28,17 +17,23 @@ router.post("/", async (req, res) => {
     const newFact = await fact.save();
     res.status(200).json(newFact);
   } catch (err) {
+    console.log(err);
     res.json({ message: err });
   }
 });
 
 router.get("/fact", async (req, res) => {
+  res.header("Cache-Control", "no-cache, no-store, must-revalidate");
+  res.header("Content-Type", "application/json");
+
   try {
     const fact = await Fact.findById(req.query.factId);
-    res.send(fact);
+    res.send(JSON.stringify(fact, null, 2));
   } catch (err) {
-    console.log(err);
-    res.send({ message: err });
+    if (err.name === "CastError") {
+      res.status(404).send({ message: "not found..." });
+    }
+    res.status(400).send({ message: err });
   }
 });
 
@@ -59,9 +54,15 @@ router.get("/all", async (req, res) => {
       fact = await Fact.find();
     }
 
-    res
-      .status(200)
-      .json([{ code: 200 }, { count: fact.length }, { facts: fact }]);
+    const response = {
+      count: fact.length,
+      facts: fact,
+    };
+
+    res.header("Cache-Control", "no-cache, no-store, must-revalidate");
+    res.header("Content-Type", "application/json");
+
+    res.status(200).send(JSON.stringify(response, null, 2));
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: err });

@@ -39,6 +39,63 @@ body::-webkit-scrollbar-thumb {
   border-radius: 20px; /* roundness of the scroll thumb */
 }
 
+/* login and register page */
+.signin-signup {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+}
+
+.login {
+  position: absolute;
+  right: 20%;
+  width: 25%;
+  transition: right ease 1s;
+}
+
+.register {
+  right: 55%;
+}
+
+input {
+  display: block;
+  padding: 10px 6px;
+  width: 100%;
+  background-color: #f0f0f0;
+  border: none;
+  margin: 10px 0;
+}
+
+.btn {
+  background-color: #5f4ca5;
+  color: white;
+  border: none;
+  padding: 6px;
+  width: 100%;
+}
+
+.side {
+  position: absolute;
+  left: 0;
+  background-color: #5f4ca5;
+  width: 35%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  transition: left ease 1s;
+}
+
+.sign-in {
+  left: 65%;
+}
+
+#login-content {
+  display: none;
+}
+
+.side__content {
+}
+
 header {
   /* background-color: aquamarine; */
   display: flex;
@@ -100,6 +157,7 @@ nav {
 /* ===== docs ===== */
 .docs {
   margin: 10px 0 0 30px;
+  width: 70%;
 }
 
 .docs div {
@@ -108,35 +166,20 @@ nav {
 
 hr {
   margin: 20px 0;
+  max-width: 100%;
 }
 
 .docs code {
-  background-color: #ebebeb;
+  background-color: #4b3e6e11;
   padding: 4px;
 }
 
-.parameters {
-  /* background-color: teal; */
+table td {
+  border-bottom: 1px solid #4b3e6e11;
 }
 
-.parameters__item {
-  /* display: flex; */
-  /* align-items: center; */
-  /* background-color: tomato; */
-}
-
-/* 
-.parameters__item span {
-  background-color: #4b3e6e;
-  margin: 0 19px;
-} */
-
-.api-response {
-  max-width: 300px;
-}
-
-table {
-  /* background-color: #4b3e6e; */
+tr:hover {
+  background-color: #4b3e6e11;
 }
 
 table tr th {
@@ -144,14 +187,6 @@ table tr th {
 }
 table tr td {
   padding: 6px;
-}
-
-footer {
-  border-top: 1px solid #4b3e6e;
-  margin-top: 2rem;
-  display: flex;
-  justify-content: space-between;
-  padding: 1rem 2rem;
 }
 
 @media screen and (max-width: 768px) {
@@ -180,5 +215,11 @@ footer {
   header div,
   nav {
     display: none;
+  }
+
+  .docs {
+    margin: 0px;
+    padding: 10px;
+    width: 100%;
   }
 }

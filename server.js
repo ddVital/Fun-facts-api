@@ -14,6 +14,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(expressLayouts);
 app.set("view engine", "ejs");
 // app.set("layout", false);
+app.set("layout login", false);
 
 app.use(express.json());
 app.use(
@@ -35,9 +36,11 @@ mongoose
 // import routes
 const apiRoute = require("./routes/api");
 const docsRoute = require("./routes/docs");
+const loginRoute = require("./routes/sign-in");
 
 app.use("/api", apiRoute);
 app.use("/docs", docsRoute);
+app.use("/", loginRoute);
 
 app.get("/", (req, res) => {
   res.render("home");
