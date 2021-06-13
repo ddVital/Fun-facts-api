@@ -41,7 +41,11 @@
       </nav>
 
       <div>
-        <a href="" class="try-free">Learn for free</a>
+        <% if (user) { %>
+        <a href="/logout" class="try-free">Logout</a>
+        <% } else { %>
+        <a href="/login" class="try-free">Try for Free</a>
+        <% } %>
       </div>
       <i class="fa fa-bars" id="bars"></i>
     </header>

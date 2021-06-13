@@ -1,5 +1,6 @@
 const express = require("express");
 const Fact = require("../models/Fact");
+const User = require("../models/User");
 
 const router = express.Router();
 
@@ -41,21 +42,36 @@ router.get("/all", async (req, res) => {
   try {
     let fact = await Fact.find();
 
-    if (req.query.lang && req.query.category) {
-      fact = await Fact.find({
-        lang: req.query.lang,
-        category: req.query.category,
-      });
-    } else if (req.query.lang) {
-      fact = await Fact.find({ lang: req.query.lang });
-    } else if (req.query.category) {
-      fact = await Fact.find({ category: req.query.category });
+    if (req.query.apiId) {
+      const user = await User.findById(req.query.apiId);
+
+      if (user.dailyRequest < 30) {
+        user.dailyRequest++;
+        user.save();
+        if (req.query.lang && req.query.category) {
+          fact = await Fact.find({
+            lang: req.query.lang,
+            category: req.query.category,
+          });
+        } else if (req.query.lang) {
+          fact = await Fact.find({ lang: req.query.lang });
+        } else if (req.query.category) {
+          fact = await Fact.find({ category: req.query.category });
+        } else {
+          fact = await Fact.find();
+        }
+      } else {
+        res.send("api key failed");
+      }
     } else {
-      fact = await Fact.find();
+      res.send("api key failed");
     }
+
+    const get = await User.findById("60c513eaf289721ceca4ccc8");
 
     const response = {
       count: fact.length,
+      user: get.dailyRequest,
       facts: fact,
     };
 

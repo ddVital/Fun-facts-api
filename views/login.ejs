@@ -25,29 +25,43 @@
       <section class="login">
         <div id="login-section">
           <h1>Sign in</h1>
-          <form action="" method="post">
-            <input type="email" name="email" placeholder="email" id="" />
-            <input type="text" name="name" placeholder="Name" id="" />
+          <form action="/login" method="post">
+            <input type="email" name="email" placeholder="Email" id="" />
             <input
               type="password"
               name="password"
-              placeholder="password"
+              placeholder="Password"
               id=""
             />
+            <a href="" class="forgot-password">Forgot your password?</a>
             <button class="btn">Sign in</button>
+            <%- include ("./partials/messages"); %>
           </form>
         </div>
 
         <div id="register-section" style="display: none">
-          <h1>Sign up</h1>
-          <form action="" method="post" id="register-form">
-            <input type="email" name="email" placeholder="email" id="" />
+          <h1>Sign Up</h1>
+          <form action="/register" method="post" id="register-form">
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              value="<%= typeof name != 'undefined' ? name : '' %>"
+            />
+            <input
+              type="text"
+              name="name"
+              placeholder="Name"
+              value="<%= typeof email != 'undefined' ? email : '' %>"
+            />
             <input
               type="password"
               name="password"
-              placeholder="password"
-              id=""
+              placeholder="Password"
+              value="<%= typeof password != 'undefined' ? password : '' %>"
             />
+            <%- include ("./partials/messages"); %>
+
             <button class="btn">Sign up</button>
           </form>
         </div>
@@ -55,15 +69,15 @@
 
       <section class="side" id="side">
         <div class="side__content" id="register-content">
-          <h3>Sign up</h3>
-          <p>Sign up and use this awesome api for free.</p>
-          <button id="sign-up">Sign up</button>
+          <h3>Welcome back!</h3>
+          <p>To keep connected with us please login with your personal info</p>
+          <button id="sign-up">Sign Up</button>
         </div>
 
         <div class="side__content" id="login-content">
-          <h3>Sign in</h3>
-          <p>Sign in and use this awesome api for free.</p>
-          <button id="sign-in">Sign in</button>
+          <h3>Hello, Friend!</h3>
+          <p>Enter your personal details and start journey with us</p>
+          <button id="sign-in">Sign In</button>
         </div>
       </section>
     </div>
@@ -77,18 +91,24 @@
       const loginContent = document.getElementById("login-content");
       const registerContent = document.getElementById("register-content");
 
+      const open = "<%= openTab %>";
+
+      console.log(open);
+
       signInBtn.addEventListener("click", () => {
         changeFormPosition(false);
         changeContent("register");
         side.classList.remove("sign-in");
-        showForm(true);
+        // showForm(true);
+        setTimeout(() => showForm(true), 300);
       });
 
       signUpBtn.addEventListener("click", () => {
         changeFormPosition(true);
         changeContent("login");
         side.classList.add("sign-in");
-        showForm(false);
+        // showForm(false);
+        setTimeout(() => showForm(false), 300);
       });
 
       const changeContent = (activePage) => {
@@ -123,6 +143,18 @@
           login.classList.remove("register");
         }
       };
+
+      if (open === "login") {
+        changeFormPosition(false);
+        changeContent("register");
+        side.classList.remove("sign-in");
+        showForm(true);
+      } else {
+        changeFormPosition(true);
+        changeContent("login");
+        side.classList.add("sign-in");
+        showForm(false);
+      }
     </script>
   </body>
 </html>
