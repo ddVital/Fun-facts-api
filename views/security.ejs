@@ -1,0 +1,28 @@
+<section class="profile">
+  <%- include ("./partials/sidebar", {active: "security"}); %>
+  <section>
+    <h4>Change password</h4>
+    <form action="/user/security" method="POST">
+      <input
+        type="password"
+        name="old"
+        placeholder="Old Password"
+        autocomplete="off"
+      />
+      <input
+        type="password"
+        name="password"
+        placeholder="New Password"
+        autocomplete="off"
+      />
+      <input
+        type="password"
+        name="confirmation"
+        placeholder="new Password confirmation"
+        autocomplete="off"
+      />
+      <%- include ("./partials/messages"); %>
+      <button class="btn">Update</button>
+    </form>
+  </section>
+</section>

@@ -34,7 +34,11 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.post("/change-password", async (req, res) => {
+router.get("/security", ensureAuthenticated, (req, res) => {
+  res.render("security");
+});
+
+router.post("/security", async (req, res) => {
   const { old, password, confirmation } = req.body;
   let errors = [];
 
@@ -47,7 +51,7 @@ router.post("/change-password", async (req, res) => {
   }
 
   const user = await User.findById(req.user.id);
-  const isOldPasswordCorrect = bcrypt.compareSync(password, user.password); // when i type 'passworrd' and the password is 'password' it says it is true.
+  const isOldPasswordCorrect = bcrypt.compareSync(old, user.password); // when i type 'passworrd' and the password is 'password' it says it is true.
 
   console.log(isOldPasswordCorrect);
 
@@ -56,8 +60,7 @@ router.post("/change-password", async (req, res) => {
   }
 
   if (errors.length > 0) {
-    console.log("errors");
-    res.render("user", { errors });
+    res.render("security", { errors });
   }
 
   bcrypt.genSalt(10, (err, salt) => {
@@ -68,24 +71,15 @@ router.post("/change-password", async (req, res) => {
         .save()
         .then((user) => {
           req.flash("success_msg", "Password updated");
-          res.redirect("/user");
+          res.redirect("/user/security");
         })
         .catch((err) => console.log(err));
     });
   });
 });
-module.exports = router;
 
-// bcrypt.genSalt(10, (err, salt) => {
-//   bcrypt.hash(newUser.password, salt, (err, hash) => {
-//     if (err) throw err;
-//     user.password = hash;
-//     user
-//       .save()
-//       .then((user) => {
-//         req.flash("success_msg", "Password updated");
-//         res.redirect("/user");
-//       })
-//       .catch((err) => console.log(err));
-//   });
-// });
+router.get("/api-key", ensureAuthenticated, (req, res) => {
+  res.render("api-key");
+});
+
+module.exports = router;

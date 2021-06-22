@@ -1,0 +1,13 @@
+<section class="sidebar">
+  <ul>
+    <li class="sidebar__item <%= active === 'account' ? 'active' : '' %>">
+      <a href="/user">Account</a>
+    </li>
+    <li class="sidebar__item <%= active === 'security' ? 'active' : '' %>">
+      <a href="/user/security">Change Password</a>
+    </li>
+    <li class="sidebar__item <%= active === 'api' ? 'active' : '' %>">
+      <a href="/user/api-key">Api key</a>
+    </li>
+  </ul>
+</section>

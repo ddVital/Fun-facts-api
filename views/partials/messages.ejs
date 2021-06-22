@@ -1,25 +1,25 @@
 <% if(locals.errors) { %>
     <% errors.forEach(function(error) { %>
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <div class="alert" role="alert">
             <%= error.msg %>
         </div>
     <% }); %>
 <% } %>
     
 <% if(success_msg != '') { %>
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <div class="success" role="alert">
         <%= success_msg %>
     </div>
 <% } %>
 
 <% if(error_msg != '') { %>
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <div class="alert" role="alert">
         <%= error_msg %>
     </div>
 <% } %>
 
 <% if(error != '') { %>
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <div class="alert" role="alert">
         <%= error %>
     </div>
 <% } %>

@@ -11,6 +11,7 @@
   /* --secondary: #ce9eff; */
   --secondary: #444964;
   --secondary-lighter: #7a83b3;
+  --error-color: #f04e4e;
   /* --text:  */
 }
 
@@ -59,6 +60,13 @@ button {
   cursor: pointer;
 }
 
+.alert {
+  color: var(--error-color);
+}
+
+.success {
+  color: #20db9a;
+}
 /* === login and register page === */
 .signin-signup {
   display: flex;
@@ -266,17 +274,39 @@ table tr td {
 
 /* === user page === */
 .profile {
-  width: 30%;
-  margin: auto;
+  /* width: 90%; */
+  display: flex;
+  /* margin: auto; */
 }
 
 .profile section {
-  margin: 2rem 0;
+  margin: 2rem 2rem;
+  width: 30%;
 }
 
 .profile button {
   padding: 6px;
   /* border-radius: 0; */
+}
+
+.sidebar {
+  /* margin-left: 8rem; */
+  width: 50%;
+}
+
+.sidebar .active {
+  background-color: var(--bg-lighter);
+}
+
+.sidebar__item {
+  padding: 10px;
+  border-radius: 50px;
+  width: 100%;
+}
+
+.sidebar__item a {
+  display: block;
+  width: 100%;
 }
 
 @media screen and (max-width: 768px) {
