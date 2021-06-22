@@ -20,6 +20,7 @@ require("./config/passport")(passport);
 const apiRoute = require("./routes/api");
 const docsRoute = require("./routes/docs");
 const loginRoute = require("./routes/auth");
+const userRoute = require("./routes/user");
 const User = require("./models/User");
 
 // Static
@@ -75,14 +76,16 @@ app.use(function (req, res, next) {
 
 app.use("/api", apiRoute);
 app.use("/docs", docsRoute);
+app.use("/user", userRoute);
 app.use("/", loginRoute);
 
 app.get("/", (req, res) => {
   res.render("home");
 });
 
+// cron.schedule("*/4 * * * * *", async () => {
 cron.schedule("* * */23 * * *", async () => {
-  console.log("You will see this message every second");
+  console.log("You will see this message every 4 seconds");
   const users = await User.find();
 
   users.forEach((user) => {

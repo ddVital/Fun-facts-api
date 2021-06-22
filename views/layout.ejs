@@ -22,8 +22,8 @@
     <title>Home</title>
   </head>
   <body>
-    <header>
-      <a href=""><img src="logo.png" alt="" /></a>
+    <header class="header">
+      <a href="/"><h2>Fun facts</h2></a>
 
       <nav class="navbar">
         <li class="navbar__item">
@@ -42,15 +42,18 @@
 
       <div>
         <% if (user) { %>
-        <a href="/logout" class="try-free">Logout</a>
+        <a href="/user" class=".header__right">hello, <%= user.name %> </a>
         <% } else { %>
-        <a href="/login" class="try-free">Try for Free</a>
+        <a href="/login" class=".header__right">Try for Free</a>
         <% } %>
       </div>
       <i class="fa fa-bars" id="bars"></i>
     </header>
 
     <div class="navigation" id="navigation">
+      <li class="navigation__item">
+        <h2>Fun facts</h2>
+      </li>
       <li class="navigation__item">
         <a href="/">Home</a>
       </li>
@@ -63,6 +66,15 @@
       <li class="navigation__item">
         <a href="/about">About</a>
       </li>
+      <% if (user) { %>
+      <li class="navigation__item">
+        <a href="/logout">Logout</a>
+      </li>
+      <% } else { %>
+      <li class="navigation__item">
+        <a href="/login">Sign in</a>
+      </li>
+      <% } %>
     </div>
 
     <%- body %>

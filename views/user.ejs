@@ -1,0 +1,67 @@
+<section class="profile">
+  <section>
+    <h4>Profile</h4>
+    <form action="user/" method="POST">
+      <input
+        type="email"
+        name="email"
+        value="<%= user.email %>"
+        placeholder="Email"
+        autocomplete="off"
+      />
+      <input
+        type="text"
+        name="name"
+        value="<%= user.name %>"
+        placeholder="Name"
+        autocomplete="off"
+      />
+      <button class="btn">Update</button>
+    </form>
+  </section>
+
+  <hr />
+
+  <section>
+    <h4>Change password</h4>
+    <form action="user/change-password" method="POST">
+      <input
+        type="password"
+        name="old"
+        placeholder="Old Password"
+        autocomplete="off"
+      />
+      <input
+        type="password"
+        name="password"
+        placeholder="New Password"
+        autocomplete="off"
+      />
+      <input
+        type="password"
+        name="confirmation"
+        placeholder="new Password confirmation"
+        autocomplete="off"
+      />
+      <%- include ("./partials/messages"); %>
+      <button class="btn">Update</button>
+    </form>
+  </section>
+
+  <hr />
+
+  <section>
+    <h4>Api key</h4>
+    <code>your api key: <%= user.id %></code>
+  </section>
+
+  <hr />
+
+  <section>
+    <h4>Others</h4>
+    <p>today's used quota: <%= user.dailyRequest %></p>
+    <a href="/logout">Logout</a>
+  </section>
+</section>
+
+<script></script>

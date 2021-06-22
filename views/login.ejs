@@ -10,15 +10,8 @@
       rel="stylesheet"
     />
 
-    <!-- font awesome -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
-      integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
-      crossorigin="anonymous"
-    />
     <link rel="stylesheet" href="styles.css" />
-    <title>Home</title>
+    <title>Members</title>
   </head>
   <body>
     <div class="signin-signup">
@@ -26,17 +19,18 @@
         <div id="login-section">
           <h1>Sign in</h1>
           <form action="/login" method="post">
-            <input type="email" name="email" placeholder="Email" id="" />
             <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              id=""
+              type="email"
+              name="email"
+              placeholder="Email"
+              autocomplete="off"
             />
+            <input type="password" name="password" placeholder="Password" />
             <a href="" class="forgot-password">Forgot your password?</a>
             <button class="btn">Sign in</button>
             <%- include ("./partials/messages"); %>
           </form>
+          <p>Don't have an account? <a href="/register">Sign Up</a></p>
         </div>
 
         <div id="register-section" style="display: none">
@@ -46,24 +40,23 @@
               type="email"
               name="email"
               placeholder="Email"
+              autocomplete="off"
               value="<%= typeof name != 'undefined' ? name : '' %>"
             />
             <input
               type="text"
               name="name"
               placeholder="Name"
+              autocomplete="off"
               value="<%= typeof email != 'undefined' ? email : '' %>"
             />
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              value="<%= typeof password != 'undefined' ? password : '' %>"
-            />
+            <input type="password" name="password" placeholder="Password" />
             <%- include ("./partials/messages"); %>
 
             <button class="btn">Sign up</button>
           </form>
+
+          <p>have an account? <a href="/login">Sign in</a></p>
         </div>
       </section>
 
@@ -93,13 +86,10 @@
 
       const open = "<%= openTab %>";
 
-      console.log(open);
-
       signInBtn.addEventListener("click", () => {
         changeFormPosition(false);
         changeContent("register");
         side.classList.remove("sign-in");
-        // showForm(true);
         setTimeout(() => showForm(true), 300);
       });
 
@@ -107,7 +97,6 @@
         changeFormPosition(true);
         changeContent("login");
         side.classList.add("sign-in");
-        // showForm(false);
         setTimeout(() => showForm(false), 300);
       });
 

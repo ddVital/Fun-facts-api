@@ -1,8 +1,24 @@
 const express = require("express");
 const Fact = require("../models/Fact");
 const User = require("../models/User");
-
 const router = express.Router();
+
+const dailyQuota = 42;
+
+const isApiTokenValid = async (apiToken) => {
+  try {
+    const user = await User.findById(apiToken);
+
+    if (user.dailyRequest < dailyQuota) {
+      user.dailyRequest++;
+      user.save();
+      return true;
+    }
+    return false;
+  } catch (err) {
+    return false;
+  }
+};
 
 router.post("/create", async (req, res) => {
   const fact = new Fact(
@@ -27,62 +43,41 @@ router.get("/fact", async (req, res) => {
   res.header("Cache-Control", "no-cache, no-store, must-revalidate");
   res.header("Content-Type", "application/json");
 
-  try {
-    const fact = await Fact.findById(req.query.factId);
-    res.send(JSON.stringify(fact, null, 2));
-  } catch (err) {
-    if (err.name === "CastError") {
-      res.status(404).send({ message: "not found..." });
+  const validateApiToken = await isApiTokenValid(req.query.apiToken);
+
+  if (validateApiToken) {
+    try {
+      const fact = await Fact.findById(req.query.factId);
+      res.send(JSON.stringify(fact, null, 2));
+    } catch (err) {
+      res.status(404).send({ message: err });
     }
-    res.status(400).send({ message: err });
   }
+
+  res.send({ message: "API token authentication failed..." });
 });
 
 router.get("/all", async (req, res) => {
-  try {
-    let fact = await Fact.find();
+  res.header("Cache-Control", "no-cache, no-store, must-revalidate");
+  res.header("Content-Type", "application/json");
 
-    if (req.query.apiId) {
-      const user = await User.findById(req.query.apiId);
+  let conditions = req.query;
+  const validateApiToken = await isApiTokenValid(req.query.apiToken);
 
-      if (user.dailyRequest < 30) {
-        user.dailyRequest++;
-        user.save();
-        if (req.query.lang && req.query.category) {
-          fact = await Fact.find({
-            lang: req.query.lang,
-            category: req.query.category,
-          });
-        } else if (req.query.lang) {
-          fact = await Fact.find({ lang: req.query.lang });
-        } else if (req.query.category) {
-          fact = await Fact.find({ category: req.query.category });
-        } else {
-          fact = await Fact.find();
-        }
-      } else {
-        res.send("api key failed");
-      }
-    } else {
-      res.send("api key failed");
+  if (validateApiToken) {
+    try {
+      delete conditions["apiToken"]; // delete api token to search items
+      let fact = await Fact.find(conditions);
+
+      const response = { count: fact.length, facts: fact };
+
+      res.status(200).send(JSON.stringify(response, null, 2));
+    } catch (err) {
+      res.send({ message: err });
     }
-
-    const get = await User.findById("60c513eaf289721ceca4ccc8");
-
-    const response = {
-      count: fact.length,
-      user: get.dailyRequest,
-      facts: fact,
-    };
-
-    res.header("Cache-Control", "no-cache, no-store, must-revalidate");
-    res.header("Content-Type", "application/json");
-
-    res.status(200).send(JSON.stringify(response, null, 2));
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ message: err });
   }
+
+  res.send({ message: "API token authentication failed..." });
 });
 
 module.exports = router;

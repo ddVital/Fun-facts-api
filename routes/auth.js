@@ -34,32 +34,23 @@ router.post("/register", (req, res) => {
   }
 
   if (errors.length > 0) {
-    res.render(
-      "login",
-      {
-        errors,
-        name,
-        email,
-        password,
-        openTab: "register",
-      },
-      { layout: "login" }
-    );
+    console.log("errors");
+    res.render("login", {
+      errors,
+      openTab: "register",
+      layout: "login",
+    });
   } else {
     User.findOne({ email: email }).then((user) => {
       if (user) {
         errors.push({ msg: "Email already exists" });
-        res.render(
-          "login",
-          {
-            errors,
-            name,
-            email,
-            password,
-            openTab: "register",
-          },
-          { layout: "login" }
-        );
+        res.render("login", {
+          errors,
+          name,
+          email,
+          openTab: "register",
+          layout: "login",
+        });
       } else {
         const newUser = new User({
           name,

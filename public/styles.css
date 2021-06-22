@@ -3,16 +3,28 @@
 /* primary: #5f4ca5; */
 /* bg: white */
 
+:root {
+  --bg-color: #222329;
+  --bg-lighter: #31323a;
+  /* --bg-color: white; */
+  --primary: #d8d8d8;
+  /* --secondary: #ce9eff; */
+  --secondary: #444964;
+  --secondary-lighter: #7a83b3;
+  /* --text:  */
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
   outline: none;
-  color: #4b3e6e;
+  color: var(--primary);
 }
 
 body,
 html {
+  background-color: var(--bg-color);
   margin: 0;
   padding: 0;
   font-family: "Poppins", sans-serif;
@@ -26,23 +38,28 @@ a {
   text-decoration: none;
 }
 
+hr {
+  border: 1px solid var(--bg-lighter);
+}
+
 body::-webkit-scrollbar {
-  width: 8px; /* width of the entire scrollbar */
+  width: 8px;
 }
 
 body::-webkit-scrollbar-track {
-  background: transparent; /* color of the tracking area */
+  background: transparent;
 }
 
 body::-webkit-scrollbar-thumb {
-  background-color: #5f4ca533; /* color of the scroll thumb */
-  border-radius: 20px; /* roundness of the scroll thumb */
+  background-color: var(--bg-lighter);
+  border-radius: 20px;
 }
 
 button {
   cursor: pointer;
 }
-/* login and register page */
+
+/* === login and register page === */
 .signin-signup {
   display: flex;
   align-items: center;
@@ -61,6 +78,10 @@ button {
   font-size: 2rem;
 }
 
+.login p {
+  display: none;
+}
+
 .forgot-password {
   display: block;
   margin: 18px 0;
@@ -74,14 +95,15 @@ input {
   display: block;
   padding: 14px;
   width: 100%;
-  background-color: #f0f0f0;
+  background-color: var(--bg-lighter);
   border: none;
+  border-radius: 50px;
   margin: 10px 0;
 }
 
 .btn {
-  background-color: #5f4ca5;
-  color: white;
+  background-color: var(--secondary);
+  color: var(--primary);
   border: none;
   padding: 14px;
   border-radius: 50px;
@@ -91,8 +113,9 @@ input {
 .side {
   position: absolute;
   left: 0;
-  background: linear-gradient(35deg, #352b52 0%, #5f4ca5 35%, #8664ff 100%);
-
+  background-color: var(--secondary);
+  background-position: center;
+  background-size: cover;
   width: 35%;
   height: 100%;
   display: flex;
@@ -132,17 +155,17 @@ h3 {
   margin: 20px 0;
   padding: 10px;
   width: 50%;
-  border: 1px solid white;
+  border: none;
+  color: var(--bg-color);
   border-radius: 50px;
 }
 
-header {
-  /* background-color: aquamarine; */
+/* === header === */
+.header {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 0.5rem;
-  box-shadow: 4px 4px 8px rgba(126, 126, 126, 0.123);
+  padding: 0.6rem;
 }
 
 nav {
@@ -154,7 +177,7 @@ nav {
   padding: 0.5rem;
 }
 
-.try-free {
+.header__right {
   font-weight: bolder;
 }
 
@@ -163,8 +186,8 @@ nav {
   display: none;
 }
 
+/* === home page === */
 .hero {
-  background-color: #faf0ff6b;
   margin: 1rem;
   border-radius: 1rem;
   min-height: 85vh;
@@ -173,22 +196,17 @@ nav {
   justify-content: space-around;
 }
 
-.hero__content {
-  /* background-color: blueviolet; */
-}
-
 .hero__content h1 {
   font-size: 2.5rem;
 }
 
 .hero__content p {
-  /* margin-top: 1rem; */
   margin-bottom: 1rem;
 }
 
 .hero__content .btn {
-  background-color: #5f4ca5;
-  color: white;
+  background-color: var(--secondary-lighter);
+  color: var(--primary);
   border-radius: 4px;
   padding: 0.5rem;
   user-select: none;
@@ -205,21 +223,38 @@ nav {
 }
 
 hr {
-  margin: 20px 0;
+  margin: 2em 0;
   max-width: 100%;
 }
 
 .docs code {
-  background-color: #4b3e6e11;
-  padding: 4px;
+  background-color: var(--bg-lighter);
+  padding: 4px 4px 4px 8px;
+  font-size: 0.9rem;
+  position: relative;
+}
+
+.api-example code::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 4px;
+  content: "";
+  background-color: var(--secondary-lighter);
+}
+
+code a {
+  color: var(--secondary-lighter);
+  font-weight: bolder;
 }
 
 table td {
-  border-bottom: 1px solid #4b3e6e11;
+  border-bottom: 1px solid var(--bg-lighter);
 }
 
-tr:hover {
-  background-color: #4b3e6e11;
+tr:hover:not(:first-child) {
+  background-color: var(--bg-lighter);
 }
 
 table tr th {
@@ -229,37 +264,129 @@ table tr td {
   padding: 6px;
 }
 
+/* === user page === */
+.profile {
+  width: 30%;
+  margin: auto;
+}
+
+.profile section {
+  margin: 2rem 0;
+}
+
+.profile button {
+  padding: 6px;
+  /* border-radius: 0; */
+}
+
 @media screen and (max-width: 768px) {
-  header {
-    /* display: flex; */
+  /* === header === */
+  .header {
     justify-content: space-between;
   }
 
-  .fa-bars {
+  #bars {
     font-size: 1.5rem;
+    display: block;
   }
 
   .navigation {
     position: fixed;
+    top: 0;
     display: none;
-    background-color: #4b3e6e;
+    background-color: var(--bg-lighter);
+    z-index: 4;
     height: 100vh;
     width: 60%;
-    transition: display ease 0.5s;
+  }
+
+  .navigation li {
+    padding: 10px;
+  }
+
+  .navigation a,
+  h2 {
+    color: var(--primary);
+    width: 100%;
+    display: block;
   }
 
   .active {
     display: block;
   }
 
-  header div,
+  .header div,
   nav {
     display: none;
   }
 
+  /* === index page === */
+  .hero {
+    margin: 0.4rem;
+  }
+
+  .hero__content {
+    margin: 10px;
+  }
+
+  .hero img {
+    /* display: none; */
+  }
+
+  /* === docs === */
   .docs {
     margin: 0px;
     padding: 10px;
     width: 100%;
+  }
+
+  .api-example code {
+    display: flex;
+    padding: 10px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+  }
+
+  /* === user page === */
+  .profile {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  /* === login and register === */
+  .signin-signup {
+    height: 100vh;
+  }
+
+  .login {
+    position: relative;
+    right: 0;
+    width: 80%;
+    margin: auto;
+    text-align: center;
+  }
+
+  .login p {
+    display: block;
+  }
+
+  .side {
+    display: none;
+  }
+
+  .navigation {
+    width: 80%;
+  }
+
+  /* === home page === */
+  .hero img {
+    display: none;
+  }
+
+  /* === user page === */
+  .profile {
+    width: 90%;
   }
 }
