@@ -9,24 +9,33 @@ router.get("/", ensureAuthenticated, async (req, res) => {
   res.render("user");
 });
 
+router.get("/delete", ensureAuthenticated, async (req, res) => {
+  await User.findByIdAndDelete(req.user.id);
+  res.redirect("/");
+});
+
 router.post("/", async (req, res) => {
   const { email, name } = req.body;
+  const user = await User.findOne({ email: email });
   let errors = [];
 
   if (!email || !name) {
     errors.push({ msg: "Please fill all the fields" });
   }
 
+  if (user && req.user.email !== email) {
+    errors.push({ msg: "Email already exists" });
+  }
+
   if (errors.length > 0) {
     res.render("user", { errors });
   } else {
     try {
-      const user = await User.findByIdAndUpdate(
+      await User.findByIdAndUpdate(
         { _id: req.user.id },
         { email: email, name: name }
       );
 
-      console.log(user);
       res.redirect("/user");
     } catch (err) {
       console.log(err);
@@ -53,29 +62,27 @@ router.post("/security", async (req, res) => {
   const user = await User.findById(req.user.id);
   const isOldPasswordCorrect = bcrypt.compareSync(old, user.password); // when i type 'passworrd' and the password is 'password' it says it is true.
 
-  console.log(isOldPasswordCorrect);
-
   if (isOldPasswordCorrect === false) {
     errors.push({ msg: "your current password is wrong" });
   }
 
   if (errors.length > 0) {
     res.render("security", { errors });
-  }
-
-  bcrypt.genSalt(10, (err, salt) => {
-    bcrypt.hash(password, salt, (err, hash) => {
-      if (err) throw err;
-      user.password = hash;
-      user
-        .save()
-        .then((user) => {
-          req.flash("success_msg", "Password updated");
-          res.redirect("/user/security");
-        })
-        .catch((err) => console.log(err));
+  } else {
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(password, salt, (err, hash) => {
+        if (err) throw err;
+        user.password = hash;
+        user
+          .save()
+          .then((user) => {
+            req.flash("success_msg", "Password updated");
+            res.redirect("/user/security");
+          })
+          .catch((err) => console.log(err));
+      });
     });
-  });
+  }
 });
 
 router.get("/api-key", ensureAuthenticated, (req, res) => {

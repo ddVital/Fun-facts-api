@@ -4,7 +4,6 @@ const passport = require("passport");
 // Load User model
 const User = require("../models/User");
 const { forwardAuthenticated } = require("../config/auth");
-const Fact = require("../models/Fact");
 
 const router = express.Router();
 
@@ -12,10 +11,6 @@ router.get("/login", async (req, res) => {
   res.render("login", { openTab: "login", layout: "login" });
 });
 
-// Login Page
-// router.get("/", forwardAuthenticated, (req, res) => res.render("login"));
-
-// Register Page
 router.get("/register", forwardAuthenticated, (req, res) =>
   res.render("login", { openTab: "register", layout: "login" })
 );
@@ -79,7 +74,6 @@ router.post("/register", (req, res) => {
   }
 });
 
-// Login
 router.post("/login", (req, res, next) => {
   passport.authenticate("local", {
     successRedirect: "/",

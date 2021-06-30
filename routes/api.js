@@ -40,14 +40,13 @@ router.post("/create", async (req, res) => {
 });
 
 router.get("/fact", async (req, res) => {
-  res.header("Cache-Control", "no-cache, no-store, must-revalidate");
-  res.header("Content-Type", "application/json");
-
   const validateApiToken = await isApiTokenValid(req.query.apiToken);
 
   if (validateApiToken) {
     try {
       const fact = await Fact.findById(req.query.factId);
+      res.header("Cache-Control", "no-cache, no-store, must-revalidate");
+      res.header("Content-Type", "application/json");
       res.send(JSON.stringify(fact, null, 2));
     } catch (err) {
       res.status(404).send({ message: err });
@@ -58,26 +57,24 @@ router.get("/fact", async (req, res) => {
 });
 
 router.get("/all", async (req, res) => {
-  res.header("Cache-Control", "no-cache, no-store, must-revalidate");
-  res.header("Content-Type", "application/json");
-
-  let conditions = req.query;
-  const validateApiToken = await isApiTokenValid(req.query.apiToken);
+  const validateApiToken = await isApiTokenValid(req.query.apiId);
 
   if (validateApiToken) {
     try {
+      let conditions = req.query;
       delete conditions["apiToken"]; // delete api token to search items
       let fact = await Fact.find(conditions);
 
       const response = { count: fact.length, facts: fact };
 
+      res.header("Content-Type", "application/json");
       res.status(200).send(JSON.stringify(response, null, 2));
     } catch (err) {
       res.send({ message: err });
     }
+  } else {
+    res.send({ message: "API token authentication failed..." });
   }
-
-  res.send({ message: "API token authentication failed..." });
 });
 
 module.exports = router;

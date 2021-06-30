@@ -10,6 +10,11 @@
       rel="stylesheet"
     />
 
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap"
+      rel="stylesheet"
+    />
+
     <!-- font awesome -->
     <link
       rel="stylesheet"
@@ -23,7 +28,7 @@
   </head>
   <body>
     <header class="header">
-      <a href="/"><h2>Fun facts</h2></a>
+      <a href="/" class="logo"><h2>FUN FACTS</h2></a>
 
       <nav class="navbar">
         <li class="navbar__item">
@@ -36,15 +41,15 @@
           <a href="/api">Api</a>
         </li>
         <li class="navbar__item">
-          <a href="/about">About</a>
+          <a href="https://github.com/ddVital/fun-facts-api#readme">About</a>
         </li>
       </nav>
 
       <div>
         <% if (user) { %>
-        <a href="/user" class=".header__right">hello, <%= user.name %> </a>
+        <a href="/user" class="header__right">hello, <%= user.name %> </a>
         <% } else { %>
-        <a href="/login" class=".header__right">Try for Free</a>
+        <a href="/login" class="header__right">Try for Free</a>
         <% } %>
       </div>
       <i class="fa fa-bars" id="bars"></i>
@@ -60,23 +65,21 @@
       <li class="navigation__item">
         <a href="/docs">Docs</a>
       </li>
+      <% if (user) { %>
       <li class="navigation__item">
-        <a href="/api">Api</a>
+        <a href="/user">Account</a>
       </li>
+      <li class="navigation__item">
+        <a href="/user/security">Security</a>
+      </li>
+      <li class="navigation__item">
+        <a href="/user/api-key">Api key</a>
+      </li>
+      <% } %>
       <li class="navigation__item">
         <a href="/about">About</a>
       </li>
-      <% if (user) { %>
-      <li class="navigation__item">
-        <a href="/logout">Logout</a>
-      </li>
-      <% } else { %>
-      <li class="navigation__item">
-        <a href="/login">Sign in</a>
-      </li>
-      <% } %>
     </div>
-
     <%- body %>
 
     <script src="/js/main.js"></script>

@@ -3,7 +3,7 @@
 
   <section>
     <h4>Profile</h4>
-    <form action="user/" method="POST">
+    <form action="/user" method="POST">
       <input
         type="email"
         name="email"
@@ -18,11 +18,13 @@
         placeholder="Name"
         autocomplete="off"
       />
+      <%- include ("./partials/messages"); %>
+
       <button class="btn">Update</button>
     </form>
     <hr />
     <a href="/logout">Logout</a>
     <hr />
-    <a href="" class="alert">Delete Account</a>
+    <a href="/user/delete" class="alert">Delete Account</a>
   </section>
 </section>

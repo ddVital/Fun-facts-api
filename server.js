@@ -1,7 +1,5 @@
-const bodyParser = require("body-parser");
 const path = require("path");
 const express = require("express");
-const body = require("body-parser");
 const expressLayouts = require("express-ejs-layouts");
 const passport = require("passport");
 const mongoose = require("mongoose");
@@ -22,6 +20,7 @@ const docsRoute = require("./routes/docs");
 const loginRoute = require("./routes/auth");
 const userRoute = require("./routes/user");
 const User = require("./models/User");
+const Fact = require("./models/Fact");
 
 // Static
 app.use(express.static(path.join(__dirname, "public")));
@@ -79,13 +78,13 @@ app.use("/docs", docsRoute);
 app.use("/user", userRoute);
 app.use("/", loginRoute);
 
-app.get("/", (req, res) => {
-  res.render("home");
+app.get("/", async (req, res) => {
+  const fact = await Fact.aggregate([{ $sample: { size: 1 } }]);
+  res.render("home", { fact: fact[0].fact });
 });
 
-// cron.schedule("*/4 * * * * *", async () => {
-cron.schedule("* * */23 * * *", async () => {
-  console.log("You will see this message every 4 seconds");
+cron.schedule("0 0 0 * * *", async () => {
+  console.log("Daily Quota reset!");
   const users = await User.find();
 
   users.forEach((user) => {
@@ -96,4 +95,6 @@ cron.schedule("* * */23 * * *", async () => {
 
 const PORT = 3000;
 
-app.listen(PORT);
+app.listen(PORT, "0.0.0.0", () => {
+  console.log("server is up and running already...");
+});
