@@ -1,7 +1,27 @@
 <section class="profile">
   <%- include ("./partials/sidebar", {active: "api"}); %>
   <section>
-    <h4>Api key</h4>
-    <p>your api key: <code><%= user.id %></code></p>
+    <h2>Api key</h2>
+
+    <p>
+      We put limits and quotas on API requests to protect the system from
+      receiving more data than it can handle, and to ensure an equitable
+      distribution of the system resources. The limits and quotas are subject to
+      change.
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Key</th>
+          <th>Daily quota</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code><%= user.id %></code></td>
+          <td><%= user.dailyRequest %></td>
+        </tr>
+      </tbody>
+    </table>
   </section>
 </section>

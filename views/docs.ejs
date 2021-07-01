@@ -6,8 +6,16 @@
       every API call you make. Our platform only processes the API requests with
       an API key included. The API key linked to your account is used to take
       count of the calls you make to FunFacts platform. We reset the count every
-      day.
+      day at midnight.
     </p>
+
+    <p>
+      if you try to call the api without an API key you'll get the following
+      error.
+    </p>
+    <code class="example">
+      { "message": "API token authentication failed..." }
+    </code>
   </section>
 
   <hr />

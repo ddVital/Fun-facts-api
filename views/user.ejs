@@ -2,7 +2,7 @@
   <%- include ("./partials/sidebar", {active: "account"}); %>
 
   <section>
-    <h4>Profile</h4>
+    <h2>Profile</h2>
     <form action="/user" method="POST">
       <input
         type="email"
@@ -20,7 +20,7 @@
       />
       <%- include ("./partials/messages"); %>
 
-      <button class="btn">Update</button>
+      <button class="btn btn--large">Update</button>
     </form>
     <hr />
     <a href="/logout">Logout</a>

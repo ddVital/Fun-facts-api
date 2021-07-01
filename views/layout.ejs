@@ -4,12 +4,12 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
-      rel="stylesheet"
+    <meta name="theme-color" content="#222329" />
+    <meta
+      name="description"
+      content="Learn wonderful facts for free with our API."
     />
-
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap"
       rel="stylesheet"
@@ -23,8 +23,9 @@
       crossorigin="anonymous"
     />
 
-    <link rel="stylesheet" href="/styles.css" />
-    <title>Home</title>
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/styles/styles.css" />
+    <title><%= title %></title>
   </head>
   <body>
     <header class="header">
@@ -38,20 +39,16 @@
           <a href="/docs">Docs</a>
         </li>
         <li class="navbar__item">
-          <a href="/api">Api</a>
-        </li>
-        <li class="navbar__item">
           <a href="https://github.com/ddVital/fun-facts-api#readme">About</a>
         </li>
+        <li class="navbar__item">
+          <% if (user) { %>
+          <a href="/user" class="header__right">Profile</a>
+          <% } else { %>
+          <a href="/login" class="btn--auth">Try for Free</a>
+          <% } %>
+        </li>
       </nav>
-
-      <div>
-        <% if (user) { %>
-        <a href="/user" class="header__right">hello, <%= user.name %> </a>
-        <% } else { %>
-        <a href="/login" class="header__right">Try for Free</a>
-        <% } %>
-      </div>
       <i class="fa fa-bars" id="bars"></i>
     </header>
 
@@ -80,7 +77,13 @@
         <a href="/about">About</a>
       </li>
     </div>
-    <%- body %>
+
+    <% if (!user) { %>
+    <div class="authentication">
+      <a href="/login" class="btn btn--secondary">Sign In</a>
+      <a href="/register" class="btn">Sign Up</a>
+    </div>
+    <% } %> <%- body %>
 
     <script src="/js/main.js"></script>
   </body>

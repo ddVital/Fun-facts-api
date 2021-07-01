@@ -1,7 +1,7 @@
 <section class="profile">
   <%- include ("./partials/sidebar", {active: "security"}); %>
   <section>
-    <h4>Change password</h4>
+    <h2>Change password</h2>
     <form action="/user/security" method="POST">
       <input
         type="password"
@@ -22,7 +22,7 @@
         autocomplete="off"
       />
       <%- include ("./partials/messages"); %>
-      <button class="btn">Update</button>
+      <button class="btn btn--large">Update</button>
     </form>
   </section>
 </section>

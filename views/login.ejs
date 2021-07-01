@@ -10,7 +10,7 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="/styles/styles.css" />
     <title>Members</title>
   </head>
   <body>
@@ -41,7 +41,7 @@
           <div><%- include ("./partials/register-messages"); %></div>
           <% } %>
 
-          <button class="btn">Sign Up</button>
+          <button class="btn btn--large">Sign Up</button>
           <p class="auth">have an account? <a href="/login">Sign in</a></p>
         </form>
       </div>
@@ -65,7 +65,7 @@
           <div><%- include ("./partials/login-messages"); %></div>
           <% } %>
 
-          <button class="btn">Sign In</button>
+          <button class="btn btn--large">Sign In</button>
 
           <p class="auth">
             Don't have an account? <a href="/register">Sign Up</a>
@@ -79,14 +79,18 @@
             <p class="text">
               To keep connected with us please login with your personal info
             </p>
-            <button class="ghost" id="signIn">Sign In</button>
+            <button class="btn btn--secondary ghost" id="signIn">
+              Sign In
+            </button>
           </div>
           <div class="overlay-panel overlay-right">
             <h1>Hello, Friend!</h1>
             <p class="text">
               Enter your personal details and start journey with us
             </p>
-            <button class="ghost" id="signUp">Sign Up</button>
+            <button class="btn btn--secondary ghost" id="signUp">
+              Sign Up
+            </button>
           </div>
         </div>
       </div>

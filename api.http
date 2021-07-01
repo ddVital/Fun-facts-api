@@ -1,7 +1,0 @@
-# GET http://localhost:3000/api/fact?postId=60a6dd58acb71c22b465b212
-# GET http://localhost:3000/api/fact?factId=60a975e2c7049a21bc14f61d
-# GET  http://localhost:3000/
-POST   http://localhost:3000/api/create-many
-Content-Type: application/json
-
-{"facts": [{"fact": "potatoes are red","category": ["red", "potatoes"], "lang": "en"},{"fact": "das ist sehr schnell","category": ["schnell"], "lang": "de"},{"fact": "ele é meu amor...!","category": ["gay"], "lang": "pt"},{"fact": "vulcões gravidos vem se tornando cada vez mais comum.","category": ["vulcões gravidos"], "lang": "pt"},{"fact": "pera","category": ["maçã"], "lang": "pt"}]}

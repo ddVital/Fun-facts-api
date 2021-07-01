@@ -6,12 +6,13 @@ const bcrypt = require("bcryptjs");
 const router = express.Router();
 
 router.get("/", ensureAuthenticated, async (req, res) => {
-  res.render("user");
+  res.render("user", { title: "Profile" });
 });
 
 router.get("/delete", ensureAuthenticated, async (req, res) => {
   await User.findByIdAndDelete(req.user.id);
-  res.redirect("/");
+  req.flash("success_msg", "Account Deleted");
+  res.redirect("/login");
 });
 
 router.post("/", async (req, res) => {
@@ -44,7 +45,7 @@ router.post("/", async (req, res) => {
 });
 
 router.get("/security", ensureAuthenticated, (req, res) => {
-  res.render("security");
+  res.render("security", { title: "Profile" });
 });
 
 router.post("/security", async (req, res) => {
@@ -67,7 +68,7 @@ router.post("/security", async (req, res) => {
   }
 
   if (errors.length > 0) {
-    res.render("security", { errors });
+    res.render("security", { errors: errors, title: "Security" });
   } else {
     bcrypt.genSalt(10, (err, salt) => {
       bcrypt.hash(password, salt, (err, hash) => {
@@ -86,7 +87,7 @@ router.post("/security", async (req, res) => {
 });
 
 router.get("/api-key", ensureAuthenticated, (req, res) => {
-  res.render("api-key");
+  res.render("api-key", { title: "API key" });
 });
 
 module.exports = router;

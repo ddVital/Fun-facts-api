@@ -28,7 +28,6 @@ app.use(express.static(path.join(__dirname, "public")));
 // EJS
 app.use(expressLayouts);
 app.set("view engine", "ejs");
-// app.set("layout", false);
 app.set("layout login", false);
 
 app.use(express.json());
@@ -80,11 +79,11 @@ app.use("/", loginRoute);
 
 app.get("/", async (req, res) => {
   const fact = await Fact.aggregate([{ $sample: { size: 1 } }]);
-  res.render("home", { fact: fact[0].fact });
+  res.render("home", { fact: fact[0].fact, title: "Home" });
 });
 
+// reset the daily usage of the user at midnight.
 cron.schedule("0 0 0 * * *", async () => {
-  console.log("Daily Quota reset!");
   const users = await User.find();
 
   users.forEach((user) => {

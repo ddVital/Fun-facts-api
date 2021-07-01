@@ -14,6 +14,7 @@ const isApiTokenValid = async (apiToken) => {
       user.save();
       return true;
     }
+
     return false;
   } catch (err) {
     return false;
@@ -40,13 +41,13 @@ router.post("/create", async (req, res) => {
 });
 
 router.get("/fact", async (req, res) => {
+  res.header("Cache-Control", "no-cache, no-store, must-revalidate");
+  res.header("Content-Type", "application/json");
   const validateApiToken = await isApiTokenValid(req.query.apiToken);
 
   if (validateApiToken) {
     try {
       const fact = await Fact.findById(req.query.factId);
-      res.header("Cache-Control", "no-cache, no-store, must-revalidate");
-      res.header("Content-Type", "application/json");
       res.send(JSON.stringify(fact, null, 2));
     } catch (err) {
       res.status(404).send({ message: err });
@@ -57,7 +58,8 @@ router.get("/fact", async (req, res) => {
 });
 
 router.get("/all", async (req, res) => {
-  const validateApiToken = await isApiTokenValid(req.query.apiId);
+  res.header("Content-Type", "application/json");
+  const validateApiToken = await isApiTokenValid(req.query.apiToken);
 
   if (validateApiToken) {
     try {
@@ -67,13 +69,14 @@ router.get("/all", async (req, res) => {
 
       const response = { count: fact.length, facts: fact };
 
-      res.header("Content-Type", "application/json");
       res.status(200).send(JSON.stringify(response, null, 2));
     } catch (err) {
       res.send({ message: err });
     }
   } else {
-    res.send({ message: "API token authentication failed..." });
+    res.send(
+      JSON.stringify({ message: "API token authentication failed..." }, null, 2)
+    );
   }
 });
 
