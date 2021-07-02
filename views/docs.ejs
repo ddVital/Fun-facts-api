@@ -57,12 +57,8 @@
 
     <div>
       <h4>API call example</h4>
-      <code class="example"
-        >https://<%= url %>/api/all?category=boat&apiToken=<a
-          href="/user/api-key"
-          class="docs__link"
-          >{your_api_key}
-        </a>
+      <code class="example">
+        https://<%= url %>/api/all?category=boat&apiToken=<a href="/user/api-key" class="docs__link">{your_api_key}</a>
       </code>
     </div>
   </section>
@@ -93,30 +89,9 @@
 
     <div>
       <h4>API call example</h4>
-      <code class="example"
-        >https://<%= url %>/api/fact?factId=60d79724fab161223c6dabcf&apiToken=<a
-          href="/user/api-key"
-          class="docs__link"
-          >{your_api_key}
-        </a>
+      <code class="example">
+        https://<%= url %>/api/fact?factId=60d79724fab161223c6dabcf&apiToken=<a href="/user/api-key"class="docs__link">{your_api_key}</a>
       </code>
     </div>
   </section>
-
-  <h1 id="res"></h1>
 </div>
-
-<script>
-  const url = "http://localhost:3000/api/all?lang=pt";
-
-  const test = async () => {
-    const a = await fetch(url);
-    const response = await a.json();
-
-    console.log(response);
-    const ele = document.getElementById("res");
-    ele.innerText = response.facts[1].fact;
-  };
-
-  test();
-</script>

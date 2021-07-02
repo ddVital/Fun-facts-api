@@ -5,7 +5,7 @@ const router = express.Router();
 
 const dailyQuota = 42;
 
-const isApiTokenValid = async (apiToken) => {
+const isApiTokenValid = async (apiToken, res) => {
   try {
     const user = await User.findById(apiToken);
 
@@ -15,9 +15,13 @@ const isApiTokenValid = async (apiToken) => {
       return true;
     }
 
-    return false;
+    res.send(
+      JSON.stringify({ message: "You exceeded your daily quota." }, null, 2)
+    );
   } catch (err) {
-    return false;
+    res.send(
+      JSON.stringify({ message: "API token authentication failed." }, null, 2)
+    );
   }
 };
 
@@ -35,8 +39,7 @@ router.post("/create", async (req, res) => {
     const newFact = await fact.save();
     res.status(200).json(newFact);
   } catch (err) {
-    console.log(err);
-    res.json({ message: err });
+    res.send(JSON.stringify({ message: err }, null, 2));
   }
 });
 
@@ -50,16 +53,16 @@ router.get("/fact", async (req, res) => {
       const fact = await Fact.findById(req.query.factId);
       res.send(JSON.stringify(fact, null, 2));
     } catch (err) {
-      res.status(404).send({ message: err });
+      res.status(404).send(JSON.stringify({ message: err }, null, 2));
     }
   }
-
-  res.send({ message: "API token authentication failed..." });
 });
 
 router.get("/all", async (req, res) => {
+  res.header("Cache-Control", "no-cache, no-store, must-revalidate");
   res.header("Content-Type", "application/json");
-  const validateApiToken = await isApiTokenValid(req.query.apiToken);
+
+  const validateApiToken = await isApiTokenValid(req.query.apiToken, res);
 
   if (validateApiToken) {
     try {
@@ -71,12 +74,8 @@ router.get("/all", async (req, res) => {
 
       res.status(200).send(JSON.stringify(response, null, 2));
     } catch (err) {
-      res.send({ message: err });
+      res.send(JSON.stringify({ message: err }, null, 2));
     }
-  } else {
-    res.send(
-      JSON.stringify({ message: "API token authentication failed..." }, null, 2)
-    );
   }
 });
 

@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="/styles/styles.css" />
     <title><%= title %></title>
   </head>
+  
   <body>
     <header class="header">
       <a href="/" class="logo"><h2>FUN FACTS</h2></a>
@@ -45,7 +46,7 @@
           <% if (user) { %>
           <a href="/user" class="header__right">Profile</a>
           <% } else { %>
-          <a href="/login" class="btn--auth">Try for Free</a>
+          <a href="/login" class="btn btn--auth">Try for Free</a>
           <% } %>
         </li>
       </nav>
@@ -63,15 +64,15 @@
         <a href="/docs">Docs</a>
       </li>
       <% if (user) { %>
-      <li class="navigation__item">
-        <a href="/user">Account</a>
-      </li>
-      <li class="navigation__item">
-        <a href="/user/security">Security</a>
-      </li>
-      <li class="navigation__item">
-        <a href="/user/api-key">Api key</a>
-      </li>
+        <li class="navigation__item">
+          <a href="/user">Account</a>
+        </li>
+        <li class="navigation__item">
+          <a href="/user/security">Security</a>
+        </li>
+        <li class="navigation__item">
+          <a href="/user/api-key">Api key</a>
+        </li>
       <% } %>
       <li class="navigation__item">
         <a href="/about">About</a>
@@ -79,11 +80,23 @@
     </div>
 
     <% if (!user) { %>
-    <div class="authentication">
-      <a href="/login" class="btn btn--secondary">Sign In</a>
-      <a href="/register" class="btn">Sign Up</a>
-    </div>
-    <% } %> <%- body %>
+      <div class="authentication">
+        <a href="/login" class="btn btn--secondary">Sign In</a>
+        <a href="/register" class="btn">Sign Up</a>
+      </div>
+    <% } %>
+    
+    <%- body %>
+
+    <footer>
+      <p>
+        This project was made by
+        <a href="https://github.com/ddVital">ddVital</a>.
+      </p>
+      <a href="https://github.com/ddVital/fun-facts-api">
+        <i class="fab fa-github"></i>
+      </a>
+    </footer>
 
     <script src="/js/main.js"></script>
   </body>

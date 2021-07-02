@@ -18,6 +18,9 @@
     "url": "https://github.com/ddVital/fun-facts-api/issues"
   },
   "homepage": "https://github.com/ddVital/fun-facts-api#readme",
+  "engines": {
+    "node": "14.x"
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
