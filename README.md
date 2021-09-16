@@ -1,3 +1,1 @@
-# node-projects
-
-some of my node.js projects
+# Fun facts API
